@@ -15,7 +15,7 @@ use crate::dtos::message::MessageResource;
 ///     if(*number > 0){
 ///         return TypedHttpResponse::return_standard_response(StatusCode::OK, String::from("This is my test response!")); 
 ///     }
-///     TypedHttpResponse::return_empty_response(StatusCode::BAD_REQUEST);
+///     TypedHttpResponse::return_empty_response(StatusCode::BAD_REQUEST)
 /// }
 /// 
 /// ```
@@ -24,6 +24,13 @@ pub struct TypedHttpResponse<B: Serialize = String> {
 }
 impl<B: Serialize> TypedHttpResponse<B> {
     /// Returns a response with the json struct you define inside + Status code
+    /// ```
+    /// use actix_web::{http::StatusCode};
+    /// use actix_web_utils::extensions::typed_response::TypedHttpResponse;
+    /// 
+    /// TypedHttpResponse::return_standard_response(StatusCode::OK, String::from("Anything in here")); //Instead of string you can put anything here as long as it is serializable.
+    /// 
+    /// ```
     pub fn return_standard_response(status_code: StatusCode, body: B) -> TypedHttpResponse<B>{
         TypedHttpResponse { 
             response: HttpResponse::with_body(StatusCode::from_u16(u16::from(status_code)).unwrap(), Some(web::Json(Ok(body))))
