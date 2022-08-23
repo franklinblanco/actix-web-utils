@@ -1,5 +1,10 @@
 use serde::{Serialize, Deserialize};
 
+/// This is for sending errors back from requests.
+/// This struct contains an optional key just in 
+/// case you want to deal with internationalization
+/// It was left as optional just in case you don't
+/// Have the time to yet...
 #[derive(Serialize, Deserialize, Debug)]
 pub struct MessageResource{
     pub key: Option<String>,
@@ -7,9 +12,6 @@ pub struct MessageResource{
 }
 
 impl MessageResource{
-    pub fn new_from_str_with_type(msg: &str) -> MessageResource{
-        MessageResource { key: None, message: String::from(msg) }
-    }
     pub fn new_empty() -> MessageResource{
         MessageResource { key: None, message: String::from("") }
     }
