@@ -1,8 +1,10 @@
 [package]
-name = "actix-web-addons"
+name = "actix-web-utils"
 version = "0.1.0"
 edition = "2021"
 authors = ["Franklin E. Blanco"]
+description = "Just some useful addons for actix web."
+license = "MIT"
 
 [lib]
 

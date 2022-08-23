@@ -170,15 +170,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "actix-web-addons"
-version = "0.1.0"
-dependencies = [
- "actix-web",
- "serde",
- "serde_json",
-]
-
-[[package]]
 name = "actix-web-codegen"
 version = "4.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -188,6 +179,15 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
+]
+
+[[package]]
+name = "actix-web-utils"
+version = "0.1.0"
+dependencies = [
+ "actix-web",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]
