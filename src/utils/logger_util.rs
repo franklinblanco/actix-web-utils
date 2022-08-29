@@ -2,7 +2,7 @@ use log::{SetLoggerError, LevelFilter};
 
 use crate::extensions::logger::SimpleLogger;
 
-static LOGGER: SimpleLogger = SimpleLogger;
+pub static LOGGER: SimpleLogger = SimpleLogger;
 
 pub fn init_logger_default() -> Result<(), SetLoggerError> {
     log::set_logger(&LOGGER)
