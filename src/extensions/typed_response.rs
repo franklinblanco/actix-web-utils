@@ -3,22 +3,22 @@ use serde::Serialize;
 
 use crate::dtos::message::MessageResource;
 
-/// 
-/// ```
-/// 
-/// use actix_web::{web::{Path}, http::StatusCode};
-/// use actix_web_utils::extensions::typed_response::TypedHttpResponse;
-/// use actix_web_utils::dtos::message::MessageResource;
-/// 
-/// //Sample route
-/// pub async fn testroute(number: Path<i32>) -> TypedHttpResponse<String> {
-///     if(*number > 0){
-///         return TypedHttpResponse::return_standard_response(StatusCode::OK, String::from("This is my test response!")); 
-///     }
-///     TypedHttpResponse::return_empty_response(StatusCode::BAD_REQUEST)
-/// }
-/// 
-/// ```
+    /// This is what it takes [MessageResource](crate::dtos::message) this is what it returns [MessageResource](crate::dtos::message)
+    /// ```
+    /// 
+    /// use actix_web::{web::{Path}, http::StatusCode};
+    /// use actix_web_utils::extensions::typed_response::TypedHttpResponse;
+    /// use actix_web_utils::dtos::message::MessageResource;
+    /// 
+    /// //Sample route
+    /// pub async fn testroute(number: Path<i32>) -> TypedHttpResponse<String> {
+    ///     if(*number > 0){
+    ///         return TypedHttpResponse::return_standard_response(StatusCode::OK, String::from("This is my test response!")); 
+    ///     }
+    ///     TypedHttpResponse::return_empty_response(StatusCode::BAD_REQUEST)
+    /// }
+    /// 
+    /// ```
 pub struct TypedHttpResponse<B: Serialize = String> {
     pub response: HttpResponse<Option<web::Json<Result<B, Vec<MessageResource>>>>>,
 }
