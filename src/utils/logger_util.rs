@@ -6,7 +6,7 @@ static LOGGER: SimpleLogger = SimpleLogger;
 
 pub fn init_logger_default() -> Result<(), SetLoggerError> {
     log::set_logger(&LOGGER)
-        .map(|()| log::set_max_level(LevelFilter::Trace))
+        .map(|()| log::set_max_level(LevelFilter::Info))
 }
 /// Made this get an integer so that you don't have to import the Log library in your code too, as the LevelFilter enum is inside it.
 /// 0 -> Off, 1 -> Trace, 2 -> Debug, 3 -> Info, 4 -> Warn, 5 -> Error
