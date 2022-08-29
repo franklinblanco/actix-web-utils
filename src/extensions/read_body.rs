@@ -9,6 +9,7 @@ use actix_web::{
     Error, HttpMessage,
 };
 use futures_util::{future::LocalBoxFuture, stream::StreamExt};
+use log::debug;
 
 /// Pass this struct to App::new().wrap(HERE) to log the request body each time a request is made. Stole it from here: <https://github.com/actix/examples/blob/master/middleware/middleware/src/read_request_body.rs>
 pub struct Logging;
@@ -59,7 +60,7 @@ where
                 body.extend_from_slice(&chunk?);
             }
 
-            println!("request body: {body:?}");
+            debug!("Incoming Request body: {:#?}", body);
             let res = svc.call(req).await?;
 
             println!("response: {:?}", res.headers());
