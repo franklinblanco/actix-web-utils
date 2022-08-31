@@ -91,8 +91,8 @@ A key-message error type to return back a neat, well formatted error to a fronte
 
 ```json
 {
-	"key": "ERROR_KEY",
-	"message": "This is the part where you put the error message."
+"key": "ERROR_KEY",
+"message": "This is the part where you put the error message."
 }
 ```
 
