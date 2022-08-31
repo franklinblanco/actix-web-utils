@@ -1,7 +1,7 @@
 use std::fmt::Display;
 use serde::Serialize;
 
-use crate::{dtos::message::MessageResource, enums::error::Error, extensions::typed_response::TypedHttpResponse};
+use crate::{dtos::message::MessageResource, enums::error::Error, extensions::{typed_response::TypedHttpResponse, generic_error::GenericError}};
 
 /// This trait aims to aid macros defined in this crate so that the macro can take any shape of error and
 /// do the same thing for all.
@@ -32,8 +32,8 @@ impl ReturnableErrorShape for Vec<MessageResource> {
         TypedHttpResponse::return_standard_error_list(status_code, self.to_vec())
     }
 }
-impl<'a> ReturnableErrorShape for dyn Display + 'a {
+impl<E: Display> ReturnableErrorShape for GenericError<E>{
     fn convert_to_returnable<T: Serialize>(&self, status_code: u16) -> TypedHttpResponse<T> {
-        TypedHttpResponse::return_standard_error(status_code, MessageResource::new_from_err(self))
+        TypedHttpResponse::return_standard_error(status_code, MessageResource::new_from_str(&self.error.to_string()))
     }
 }
