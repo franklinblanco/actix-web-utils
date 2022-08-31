@@ -16,13 +16,13 @@ macro_rules! unwrap_or_return_handled_error {
     ( $error_status_code:literal, $e:expr, $type_of_resp:ty ) => {
         match $e {
             Ok(value) => value,
-            Err(error) => return actix_web_utils::traits::macro_traits::ReturnableErrorShape::convert_to_returnable::<$type_of_resp>(&error, error_status_code)
+            Err(error) => return actix_web_utils::traits::macro_traits::ReturnableErrorShape::convert_to_returnable::<$type_of_resp>(&error, $error_status_code)
         }
     };
     ( $error_status_code:literal, $success_status_code:literal, $e:expr, $type_of_resp:ty) => {
         match $e {
             Ok(value) => return actix_web_utils::typed_response::TypedHttpResponse::return_standard_response($success_status_code, value),
-            Err(error) => return actix_web_utils::traits::macro_traits::ReturnableErrorShape::convert_to_returnable::<$type_of_resp>(&error, error_status_code)
+            Err(error) => return actix_web_utils::traits::macro_traits::ReturnableErrorShape::convert_to_returnable::<$type_of_resp>(&error, $error_status_code)
         }
     }
 }
