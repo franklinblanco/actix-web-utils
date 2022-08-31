@@ -74,7 +74,7 @@ When you could be doing this:
 fn service_layer_function() -> TypedHttpResponse<T> { //T can be whatever you want
 	// ... Some Business logic
 	let value_returned_from_match = unwrap_or_return_handled_error!(
-		function_that_returns_a_result()
+		function_that_returns_a_result(), T
 	);
 	// ... More Business logic
 }
