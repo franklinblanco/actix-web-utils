@@ -1,6 +1,4 @@
 use std::fmt::Display;
-
-use log::debug;
 use serde::Serialize;
 
 use crate::{dtos::message::MessageResource, enums::error::Error, extensions::typed_response::TypedHttpResponse};
@@ -17,7 +15,7 @@ impl ReturnableErrorShape for MessageResource {
 }
 impl ReturnableErrorShape for Error {
     fn convert_to_returnable<T: Serialize>(&self, status_code: u16) -> TypedHttpResponse<T> {
-        debug!("Converted error to returnable. Error: {}", self.to_string());
+        //debug!("Converted error to returnable. Error: {}", self.to_string());
         match self {
             Error::Unspecified => TypedHttpResponse::return_standard_error(status_code, MessageResource::new_empty()),
             Error::NetworkError(message) => TypedHttpResponse::return_standard_error(status_code, message.clone()),
@@ -34,7 +32,7 @@ impl ReturnableErrorShape for Vec<MessageResource> {
         TypedHttpResponse::return_standard_error_list(status_code, self.to_vec())
     }
 }
-impl ReturnableErrorShape for dyn Display {
+impl<'a> ReturnableErrorShape for dyn Display + 'a {
     fn convert_to_returnable<T: Serialize>(&self, status_code: u16) -> TypedHttpResponse<T> {
         TypedHttpResponse::return_standard_error(status_code, MessageResource::new_from_err(self))
     }
