@@ -26,3 +26,15 @@ macro_rules! unwrap_or_return_handled_error {
         }
     }
 }
+
+/// Takes whatever error you supply to it and wraps it in a GenericError<E> if err
+#[allow(unused_macros)]
+#[macro_export]
+macro_rules! wrap_generic_error_in_wrapper {
+    ( $e:expr ) => {
+        match $e {
+            Ok(value) => value,
+            Err(error) => actix_web_utils::extensions::generic_error::GenericError::wrap(error),
+        }
+    }
+}
