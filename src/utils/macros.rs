@@ -33,8 +33,8 @@ macro_rules! unwrap_or_return_handled_error {
 macro_rules! wrap_generic_error_in_wrapper {
     ( $e:expr ) => {
         match $e {
-            Ok(value) => value,
-            Err(error) => actix_web_utils::extensions::generic_error::GenericError::wrap(error),
+            Ok(value) => Ok(value),
+            Err(error) => Err(actix_web_utils::extensions::generic_error::GenericError::wrap(error)),
         }
     }
 }
