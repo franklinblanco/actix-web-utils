@@ -90,10 +90,10 @@ Much better and more readable for me.
 A key-message error type to return back a neat, well formatted error to a frontend. The key is optional, as I won't force you to use internationalization.
 
 ```json
-	{
+{
 	"key": "ERROR_KEY",
 	"message": "This is the part where you put the error message."
-	}
+}
 ```
 
 This is supposed to be sent back to the client, so the client can display the error to the user, and/or get the translation (with the key). It is optional.
