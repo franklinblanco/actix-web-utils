@@ -19,7 +19,7 @@ impl ReturnableErrorShape for Error {
         match self {
             Error::Unspecified => TypedHttpResponse::return_standard_error(status_code, MessageResource::new_empty()),
             Error::NetworkError(message) => TypedHttpResponse::return_standard_error(status_code, message.clone()),
-            Error::UnexpectedStatusCode(_, actual, message) => TypedHttpResponse::return_standard_error(*actual, message.clone()),
+            Error::UnexpectedStatusCode(_, actual, messages) => TypedHttpResponse::return_standard_error_list(*actual, messages.clone()),
             Error::ClientError(message) => TypedHttpResponse::return_standard_error(status_code, message.clone()),
             Error::SerdeError(message, _) => TypedHttpResponse::return_standard_error(status_code, message.clone()),
             Error::DatabaseError(message, _) => TypedHttpResponse::return_standard_error(status_code, message.clone()),
