@@ -5,6 +5,7 @@ use crate::dtos::message::MessageResource;
 
 /// This is supposed to be used whenever you have an error in your code and want to be more specific about it. 
 /// Fits in with most CRUD web apps. What you send back to the client is a MessageResource, not the error itself!
+#[derive(Debug)]
 pub enum Error{
     /// Takes a Message and the query
     DatabaseError(MessageResource, String),
@@ -35,3 +36,4 @@ impl fmt::Display for Error{
         }
     }
 }
+impl std::error::Error for Error {}
