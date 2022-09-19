@@ -1,6 +1,6 @@
 [package]
 name = "actix-web-utils"
-version = "0.2.15"
+version = "0.2.16"
 edition = "2021"
 authors = ["Franklin E. Blanco"]
 description = "Just some useful addons for actix web."
