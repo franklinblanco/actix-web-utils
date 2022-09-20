@@ -46,8 +46,9 @@ impl FromStr for Error {
             None => return Err(Error::Unspecified),
         };
         if error_name_whole.starts_with("Unspecified") {
-            return Err(Self::Unspecified)
-        } else if error_name_whole.contains("UnexpectedStatusCode") {
+            return Ok(Self::Unspecified)
+        }
+        if error_name_whole.contains("UnexpectedStatusCode") {
             let expected_str_index = string.find("Expected: ").unwrap() + 10;
             let actual_str_index = string.find("Actual: ").unwrap() + 8;
             let expected_status_code = string.get(expected_str_index..expected_str_index+3).unwrap();
@@ -55,16 +56,21 @@ impl FromStr for Error {
             
             let message_resources_string = string.get(string.find("receivedMessageResources").unwrap() + 26..string.len() - 1).unwrap();
             let message_resources: Vec<MessageResource> = serde_json::from_str(message_resources_string).unwrap();
-            return Err(Self::UnexpectedStatusCode(expected_status_code.parse().unwrap(), actual_status_code.parse().unwrap(), message_resources));
-        } else if error_name_whole.starts_with("Client") {
+            return Ok(Self::UnexpectedStatusCode(expected_status_code.parse().unwrap(), actual_status_code.parse().unwrap(), message_resources));
+        }
+        if error_name_whole.starts_with("Client") {
 
-        } else if error_name_whole.starts_with("Network") {
+        }
+        if error_name_whole.starts_with("Network") {
 
-        } else if error_name_whole.starts_with("Serialization") {
+        }
+        if error_name_whole.starts_with("Serialization") {
 
-        } else if error_name_whole.starts_with("Database") {
+        }
+        if error_name_whole.starts_with("Database") {
 
-        } else if error_name_whole.starts_with("Compute") {
+        } 
+        if error_name_whole.starts_with("Compute") {
 
         }
 
