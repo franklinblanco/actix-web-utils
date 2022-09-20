@@ -40,14 +40,14 @@ impl FromStr for Error {
     type Err = Error;
 
     fn from_str(string: &str) -> Result<Self, Self::Err> {
-        let error_name_option = string.get(14..24);
+        let error_name_option = string.get(13..25);
         let error_name_whole = match error_name_option {
             Some(error_name_whole) => error_name_whole,
             None => return Err(Error::Unspecified),
         };
         if error_name_whole.starts_with("Unspecified") {
             return Err(Self::Unspecified)
-        } else if error_name_whole.starts_with("UnexpectedStatusCode") {
+        } else if error_name_whole.contains("UnexpectedStatusCode") {
             let expected_str_index = string.find("Expected: ").unwrap() + 10;
             let actual_str_index = string.find("Actual: ").unwrap() + 8;
             let expected_status_code = string.get(expected_str_index..expected_str_index+3).unwrap();
