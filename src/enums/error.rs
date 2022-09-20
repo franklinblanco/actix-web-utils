@@ -68,7 +68,7 @@ impl FromStr for Error {
 
         }
 
-        Ok(Error::Unspecified)
+        Ok(Error::ClientError(MessageResource::new_from_str("msg")))
     }
 }
 impl std::error::Error for Error {}
