@@ -390,8 +390,8 @@ dependencies = [
 
 [[package]]
 name = "err"
-version = "0.1.0"
-source = "git+https://github.com/franklinblanco/err.git?branch=master#93ff7e8e5cff0b3032e897a92ce583851cdeaf96"
+version = "0.1.1"
+source = "git+https://github.com/franklinblanco/err.git?branch=master#42237f4a4be71530933f920f7e5eb6dbf1d0c75e"
 dependencies = [
  "serde",
 ]
