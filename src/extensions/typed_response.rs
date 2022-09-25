@@ -1,8 +1,7 @@
 use actix_web::{HttpResponse, http::StatusCode, web, HttpRequest, HttpResponseBuilder, body::BoxBody, Responder};
 use serde::Serialize;
 
-use crate::dtos::message::MessageResource;
-
+use err::MessageResource;
     /// Defines a type for actix web routes. As the current implementation of HttpResponse doesn't let you manually specify a type.
     /// ```
     /// 

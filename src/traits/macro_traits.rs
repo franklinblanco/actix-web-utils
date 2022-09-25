@@ -1,7 +1,8 @@
 use std::fmt::Display;
 use serde::Serialize;
 
-use crate::{dtos::message::MessageResource, enums::error::Error, extensions::{typed_response::TypedHttpResponse, generic_error::GenericError}};
+use err::{Error, MessageResource};
+use crate::{extensions::{typed_response::TypedHttpResponse, generic_error::GenericError}};
 
 /// This trait aims to aid macros defined in this crate so that the macro can take any shape of error and
 /// do the same thing for all.
@@ -15,15 +16,14 @@ impl ReturnableErrorShape for MessageResource {
 }
 impl ReturnableErrorShape for Error {
     fn convert_to_returnable<T: Serialize>(&self, status_code: u16) -> TypedHttpResponse<T> {
-        //debug!("Converted error to returnable. Error: {}", self.to_string());
         match self {
-            Error::Unspecified => TypedHttpResponse::return_standard_error(status_code, MessageResource::new_empty()),
-            Error::NetworkError(message) => TypedHttpResponse::return_standard_error(status_code, message.clone()),
+            Error::Unspecified => TypedHttpResponse::return_standard_error(status_code, MessageResource::from(self)),
+            Error::Network(message) => TypedHttpResponse::return_standard_error(status_code, message.clone()),
             Error::UnexpectedStatusCode(_, actual, messages) => TypedHttpResponse::return_standard_error_list(*actual, messages.clone()),
-            Error::ClientError(message) => TypedHttpResponse::return_standard_error(status_code, message.clone()),
-            Error::SerdeError(message, _) => TypedHttpResponse::return_standard_error(status_code, message.clone()),
-            Error::DatabaseError(message, _) => TypedHttpResponse::return_standard_error(status_code, message.clone()),
-            Error::ComputeError(message) => TypedHttpResponse::return_standard_error(status_code, message.clone()),
+            Error::Serde(message) => TypedHttpResponse::return_standard_error(status_code, message.clone()),
+            Error::IO(message) => TypedHttpResponse::return_standard_error(status_code, message.clone()),
+            Error::Privilege(message) => TypedHttpResponse::return_standard_error(status_code, message.clone()),
+            Error::Parser(message) => TypedHttpResponse::return_standard_error(status_code, message.clone()),
         }
     }
 }
